@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ua.com.foxminded</groupId>
-    <artifactId>integerdivisor</artifactId>
-    <version>0-1-9-SNAPSHOT</version>
+    <artifactId>integerlongdivision</artifactId>
+    <version>0-2-5-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -48,7 +48,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>ua.com.foxminded.integerdivisor.IntegerDivisorConsoleApplication</mainClass>
+                            <mainClass>ua.com.foxminded.integerdivision.IntegerDivisionConsoleApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -60,7 +60,8 @@
                 <version>0.8.7</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/IntegerDivisorConsoleApplication.*</exclude>
+                        <exclude>**/IntegerDivisionConsoleApplication.*</exclude>
+                        <exclude>**/*Provider.*</exclude>
                     </excludes>
                     <rules>
                         <rule>
