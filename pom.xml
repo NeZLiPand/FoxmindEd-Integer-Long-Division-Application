@@ -62,6 +62,7 @@
                     <excludes>
                         <exclude>**/IntegerDivisionConsoleApplication.*</exclude>
                         <exclude>**/*Provider.*</exclude>
+                        <exclude>**/genus/**</exclude>
                     </excludes>
                     <rules>
                         <rule>
