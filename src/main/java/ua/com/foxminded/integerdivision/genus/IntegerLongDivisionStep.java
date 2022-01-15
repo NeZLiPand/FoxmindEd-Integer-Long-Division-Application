@@ -3,27 +3,27 @@ package ua.com.foxminded.integerdivision.genus;
 import java.util.Objects;
 
 public final class IntegerLongDivisionStep {
-    private final int numeratorOfSubtractionColumns;
-    private final int denominatorOfSubtractionColumns;
+    private final int minuend;
+    private final int subtrahend;
 
-    public IntegerLongDivisionStep(int numeratorOfSubtractionColumns,
-                                   int denominatorOfSubtractionColumns) {
-        this.numeratorOfSubtractionColumns = numeratorOfSubtractionColumns;
-        this.denominatorOfSubtractionColumns = denominatorOfSubtractionColumns;
+    public IntegerLongDivisionStep(int minuend,
+                                   int subtrahend) {
+        this.minuend = minuend;
+        this.subtrahend = subtrahend;
 
     }
 
-    public int getDenominatorOfSubtractionColumns() {
-        return denominatorOfSubtractionColumns;
+    public int getMinuend() {
+        return minuend;
     }
 
-    public int getNumeratorOfSubtractionColumns() {
-        return numeratorOfSubtractionColumns;
+    public int getSubtrahend() {
+        return subtrahend;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(denominatorOfSubtractionColumns, numeratorOfSubtractionColumns);
+        return Objects.hash(subtrahend, minuend);
     }
 
     @Override
@@ -38,16 +38,16 @@ public final class IntegerLongDivisionStep {
             return false;
         }
         IntegerLongDivisionStep other = (IntegerLongDivisionStep) obj;
-        return denominatorOfSubtractionColumns == other.denominatorOfSubtractionColumns &&
-               numeratorOfSubtractionColumns == other.numeratorOfSubtractionColumns;
+        return subtrahend == other.subtrahend &&
+               minuend == other.minuend;
     }
 
     @Override
     public String toString() {
-        return "IntegerLongDivisionStep [numeratorOfSubtractionColumns="
-               + numeratorOfSubtractionColumns
-               + ", denominatorOfSubtractionColumns="
-               + denominatorOfSubtractionColumns
+        return "IntegerLongDivisionStep [minuend="
+               + minuend
+               + ", subtrahend="
+               + subtrahend
                + "]";
     }
 }

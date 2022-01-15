@@ -4,26 +4,40 @@ import java.util.List;
 import java.util.Objects;
 
 public final class IntegerLongDivisionResult {
-    private final IntegerDivisionResult integerDivisionResult;
-    private final List<IntegerLongDivisionStep> integerLongDivisionSteps;
+    private final int divided;
+    private final int divisor;
+    private final int remainder;
+    private final List<IntegerLongDivisionStep> steps;
 
-    public IntegerLongDivisionResult(IntegerDivisionResult integerDivisionResult,
-                                     List<IntegerLongDivisionStep> integerLongDivisionSteps) {
-        this.integerDivisionResult = integerDivisionResult;
-        this.integerLongDivisionSteps = integerLongDivisionSteps;
+    public IntegerLongDivisionResult(int divided,
+                                     int divisor,
+                                     int remainder,
+                                     List<IntegerLongDivisionStep> steps) {
+        this.divided = divided;
+        this.divisor = divisor;
+        this.remainder = remainder;
+        this.steps = steps;
     }
 
-    public IntegerDivisionResult getIntegerDivisionResult() {
-        return integerDivisionResult;
+    public int getDivided() {
+        return divided;
     }
 
-    public List<IntegerLongDivisionStep> getIntegerLongDivisionSteps() {
-        return integerLongDivisionSteps;
+    public int getDivisor() {
+        return divisor;
+    }
+
+    public int getRemainder() {
+        return remainder;
+    }
+
+    public List<IntegerLongDivisionStep> steps() {
+        return steps;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(integerDivisionResult, integerLongDivisionSteps);
+        return Objects.hash(divided, divisor, steps, remainder);
     }
 
     @Override
@@ -38,16 +52,22 @@ public final class IntegerLongDivisionResult {
             return false;
         }
         IntegerLongDivisionResult other = (IntegerLongDivisionResult) obj;
-        return Objects.equals(integerDivisionResult, other.integerDivisionResult) &&
-               Objects.equals(integerLongDivisionSteps, other.integerLongDivisionSteps);
+        return divided == other.divided &&
+               divisor == other.divisor &&
+               Objects.equals(steps, other.steps) &&
+               remainder == other.remainder;
     }
 
     @Override
     public String toString() {
-        return "IntegerLongDivisionResult [integerDivisionResult="
-               + integerDivisionResult
-               + ", integerLongDivisionSteps="
-               + integerLongDivisionSteps
+        return "IntegerLongDivisionResult [divided="
+               + divided
+               + ", divisor="
+               + divisor
+               + ", remainder="
+               + remainder
+               + ", steps="
+               + steps
                + "]";
     }
 }

@@ -4,7 +4,6 @@ public class IntegerLongDivisionValidatorImpl implements IntegerLongDivisionVali
 
     public void validate(int divided,
                          int divisor) {
-
         if (divided < 0) {
             throw new IllegalArgumentException("divided is less than zero");
         }
