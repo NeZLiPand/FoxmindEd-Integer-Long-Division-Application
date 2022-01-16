@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.LinkedList;
 
-import ua.com.foxminded.integerdivision.genus.IntegerDivisionResult;
 import ua.com.foxminded.integerdivision.genus.IntegerLongDivisionResult;
 import ua.com.foxminded.integerdivision.genus.IntegerLongDivisionStep;
 
@@ -22,9 +21,7 @@ class IntegerLongDivisionMathProviderTest {
         integerLongDivisionSteps.add(new IntegerLongDivisionStep(378, 297));
         integerLongDivisionSteps.add(new IntegerLongDivisionStep(819, 792));
         integerLongDivisionSteps.add(new IntegerLongDivisionStep(270, 198));
-        assertEquals(
-                    new IntegerLongDivisionResult(new IntegerDivisionResult(1234567890, 99, 72),
-                                integerLongDivisionSteps),
+        assertEquals(new IntegerLongDivisionResult(1234567890, 99, 72, integerLongDivisionSteps),
                     integerLongDivisionMathProvider.provideMathIntegerLongDivision(123_456_789_0, 99));
     }
 
@@ -32,7 +29,7 @@ class IntegerLongDivisionMathProviderTest {
     void testIntegerLongDivisionProviderintegerDivision_shouldReturnIntegerLongDivision_whenInputSmallIntegers() {
         LinkedList<IntegerLongDivisionStep> integerLongDivisionSteps = new LinkedList<>();
         integerLongDivisionSteps.add(new IntegerLongDivisionStep(3, 2));
-        assertEquals(new IntegerLongDivisionResult(new IntegerDivisionResult(3, 2, 1), integerLongDivisionSteps),
+        assertEquals(new IntegerLongDivisionResult(3, 2, 1, integerLongDivisionSteps),
                     integerLongDivisionMathProvider.provideMathIntegerLongDivision(3, 2));
     }
 }

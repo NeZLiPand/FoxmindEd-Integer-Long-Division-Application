@@ -16,153 +16,119 @@ public class IntegerLongDivisionViewProviderImpl implements IntegerLongDivisionV
 
     @Override
     public String integerLongDivisionProvideView(IntegerLongDivisionResult integerLongDivisionResult) {
-        return provideView(integerLongDivisionResult);
-    }
-
-    private String provideView(IntegerLongDivisionResult integerLongDivisionResult) {
         StringBuilder sketchOfIntegerLongDivision = new StringBuilder("");
-        sketchOfIntegerLongDivision.append(addingFirstAndSecondLinesOfLongDivision(integerLongDivisionResult));
-        sketchOfIntegerLongDivision.append(addingThirdLineOfLongDivision(integerLongDivisionResult));
-        return sketchOfIntegerLongDivision.append(addingTailOfLongDivision(integerLongDivisionResult)).toString();
+        sketchOfIntegerLongDivision.append(addingFirstAndSecondParticlesOfLongDivision(integerLongDivisionResult));
+        sketchOfIntegerLongDivision.append(addingThirdParticleOfLongDivision(integerLongDivisionResult));
+        return sketchOfIntegerLongDivision.append(addingRemainingParticlesOfLongDivision(integerLongDivisionResult))
+                    .toString();
     }
 
-    private String addingFirstAndSecondLinesOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
-        StringBuilder copySketchOfIntegerLongDivision = new StringBuilder("");
-        int divided = integerLongDivisionResult.getIntegerDivisionResult().getDivided();
-        int divisor = integerLongDivisionResult.getIntegerDivisionResult().getDivisor();
-        List<IntegerLongDivisionStep> integerLongDivisionSteps = new ArrayList<>(
-                    integerLongDivisionResult.getIntegerLongDivisionSteps());
+    private String addingFirstAndSecondParticlesOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
+        StringBuilder sketchPart = new StringBuilder("");
+        int divided = integerLongDivisionResult.getDivided();
+        int divisor = integerLongDivisionResult.getDivisor();
+        List<IntegerLongDivisionStep> steps = new ArrayList<>(integerLongDivisionResult.steps());
         int amountOfDigitsInQuotient = IntegerCalculationUtilities.calculateAmountOfDigits(divided / divisor);
         int amountOfDigitsInDivisor = IntegerCalculationUtilities.calculateAmountOfDigits(divisor);
         int amountSpaceDelimitersBeforePillar = IntegerCalculationUtilities.calculateAmountOfDigits(divided)
-            - IntegerCalculationUtilities
-                        .calculateAmountOfDigits(integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns());
-        copySketchOfIntegerLongDivision.append(SYM_SUBTRACTION).append(divided).append(SYM_PILLAR).append(divisor)
-                    .append(SYM_NEW_LINE).append(SYM_SPACE_DELIMITER);
-        addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                    (IntegerCalculationUtilities.calculateAmountOfDigits(
-                                integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns())
-                        - IntegerCalculationUtilities.calculateAmountOfDigits(
-                                    integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns())));
-        copySketchOfIntegerLongDivision.append(integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns());
-        addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                    amountSpaceDelimitersBeforePillar);
-        copySketchOfIntegerLongDivision.append(SYM_PILLAR);
+            - IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getMinuend());
+        sketchPart.append(SYM_SUBTRACTION).append(divided).append(SYM_PILLAR).append(divisor).append(SYM_NEW_LINE)
+                    .append(SYM_SPACE_DELIMITER);
+        addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER,
+                    (IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getMinuend())
+                        - IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getSubtrahend())));
+        sketchPart.append(steps.get(0).getSubtrahend());
+        addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpaceDelimitersBeforePillar);
+        sketchPart.append(SYM_PILLAR);
         if (amountOfDigitsInQuotient >= amountOfDigitsInDivisor) {
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_FENCE, amountOfDigitsInQuotient);
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_FENCE, amountOfDigitsInQuotient);
         } else {
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_FENCE, amountOfDigitsInDivisor);
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_FENCE, amountOfDigitsInDivisor);
         }
-        copySketchOfIntegerLongDivision.append(SYM_NEW_LINE).append(SYM_SPACE_DELIMITER);
-        return copySketchOfIntegerLongDivision.toString();
+        sketchPart.append(SYM_NEW_LINE).append(SYM_SPACE_DELIMITER);
+        return sketchPart.toString();
     }
 
-    private String addingThirdLineOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
-        StringBuilder copySketchOfIntegerLongDivision = new StringBuilder("");
-        int divided = integerLongDivisionResult.getIntegerDivisionResult().getDivided();
-        List<IntegerLongDivisionStep> integerLongDivisionSteps = new ArrayList<>(
-                    integerLongDivisionResult.getIntegerLongDivisionSteps());
+    private String addingThirdParticleOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
+        StringBuilder sketchPart = new StringBuilder("");
+        int divided = integerLongDivisionResult.getDivided();
+        int divisor = integerLongDivisionResult.getDivisor();
+        List<IntegerLongDivisionStep> steps = new ArrayList<>(integerLongDivisionResult.steps());
         int amountSpaceDelimitersBeforePillar = IntegerCalculationUtilities.calculateAmountOfDigits(divided)
-            - IntegerCalculationUtilities
-                        .calculateAmountOfDigits(integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns());
-        addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_FENCE, IntegerCalculationUtilities
-                    .calculateAmountOfDigits(integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns()));
-        addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                    amountSpaceDelimitersBeforePillar);
-        copySketchOfIntegerLongDivision.append(SYM_PILLAR)
-                    .append(divided / integerLongDivisionResult.getIntegerDivisionResult().getDivisor())
-                    .append(SYM_NEW_LINE);
-        return copySketchOfIntegerLongDivision.toString();
+            - IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getMinuend());
+        addingMultipleCopiesOfSymbol(sketchPart, SYM_FENCE,
+                    IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getMinuend()));
+        addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpaceDelimitersBeforePillar);
+        sketchPart.append(SYM_PILLAR).append(divided / divisor).append(SYM_NEW_LINE);
+        return sketchPart.toString();
     }
 
-    private String addingTailOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
-        StringBuilder copySketchOfIntegerLongDivision = new StringBuilder("");
-        List<IntegerLongDivisionStep> integerLongDivisionSteps = new ArrayList<>(
-                    integerLongDivisionResult.getIntegerLongDivisionSteps());
-        int amountColumnsSubtraction = integerLongDivisionSteps.size();
-        int amountSpacesBeforeValues = IntegerCalculationUtilities
-                    .calculateAmountOfDigits(integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns())
+    private String addingRemainingParticlesOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
+        StringBuilder sketchPart = new StringBuilder("");
+        List<IntegerLongDivisionStep> steps = new ArrayList<>(integerLongDivisionResult.steps());
+        int amountColumnsSubtraction = steps.size();
+        int amountSpacesBeforeValues = IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getMinuend())
             - IntegerCalculationUtilities
-                        .calculateAmountOfDigits(integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns()
-                            - integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns());
+                        .calculateAmountOfDigits(steps.get(0).getMinuend() - steps.get(0).getSubtrahend());
         if (amountColumnsSubtraction > 1) {
-            if ((integerLongDivisionSteps.get(0).getNumeratorOfSubtractionColumns()
-                - integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns()) == 0) {
+            if ((steps.get(0).getMinuend() - steps.get(0).getSubtrahend()) == 0) {
                 amountSpacesBeforeValues = amountSpacesBeforeValues
-                    + IntegerCalculationUtilities.calculateAmountOfDigits(
-                                integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns())
-                    - 1;
+                    + IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getSubtrahend()) - 1;
             }
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                        amountSpacesBeforeValues);
-            copySketchOfIntegerLongDivision.append(SYM_SUBTRACTION)
-                        .append(integerLongDivisionSteps.get(1).getNumeratorOfSubtractionColumns())
-                        .append(SYM_NEW_LINE);
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpacesBeforeValues);
+            sketchPart.append(SYM_SUBTRACTION).append(steps.get(1).getMinuend()).append(SYM_NEW_LINE);
         } else {
-            if (integerLongDivisionResult.getIntegerDivisionResult().getRemainderOfTheDivision() == 0) {
+            if (integerLongDivisionResult.getRemainder() == 0) {
                 amountSpacesBeforeValues = amountSpacesBeforeValues + 1;
             }
-            if (IntegerCalculationUtilities.calculateAmountOfDigits(
-                        integerLongDivisionResult.getIntegerDivisionResult().getDivided()) > IntegerCalculationUtilities
-                                    .calculateAmountOfDigits(
-                                                integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns())) {
+            if (IntegerCalculationUtilities
+                        .calculateAmountOfDigits(integerLongDivisionResult.getDivided()) > IntegerCalculationUtilities
+                                    .calculateAmountOfDigits(steps.get(0).getSubtrahend())) {
                 amountSpacesBeforeValues = amountSpacesBeforeValues
-                    + IntegerCalculationUtilities.calculateAmountOfDigits(
-                                integerLongDivisionResult.getIntegerDivisionResult().getDivided())
-                    - IntegerCalculationUtilities.calculateAmountOfDigits(
-                                integerLongDivisionSteps.get(0).getDenominatorOfSubtractionColumns());
+                    + IntegerCalculationUtilities.calculateAmountOfDigits(integerLongDivisionResult.getDivided())
+                    - IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(0).getSubtrahend());
             }
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                        amountSpacesBeforeValues);
-            copySketchOfIntegerLongDivision
-                        .append(integerLongDivisionResult.getIntegerDivisionResult().getRemainderOfTheDivision());
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpacesBeforeValues);
+            sketchPart.append(integerLongDivisionResult.getRemainder());
         }
         for (int iterator = 1; iterator < amountColumnsSubtraction; iterator++) {
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                        amountSpacesBeforeValues + 1);
-            copySketchOfIntegerLongDivision
-                        .append(integerLongDivisionSteps.get(iterator).getDenominatorOfSubtractionColumns())
-                        .append(SYM_NEW_LINE);
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                        amountSpacesBeforeValues + 1);
-            addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_FENCE,
-                        IntegerCalculationUtilities.calculateAmountOfDigits(
-                                    integerLongDivisionSteps.get(iterator).getNumeratorOfSubtractionColumns()));
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpacesBeforeValues + 1);
+            sketchPart.append(steps.get(iterator).getSubtrahend()).append(SYM_NEW_LINE);
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpacesBeforeValues + 1);
+            addingMultipleCopiesOfSymbol(sketchPart, SYM_FENCE,
+                        IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(iterator).getMinuend()));
             amountSpacesBeforeValues = amountSpacesBeforeValues
-                + IntegerCalculationUtilities.calculateAmountOfDigits(
-                            integerLongDivisionSteps.get(iterator).getNumeratorOfSubtractionColumns())
+                + IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(iterator).getMinuend())
                 - IntegerCalculationUtilities.calculateAmountOfDigits(
-                            integerLongDivisionSteps.get(iterator).getNumeratorOfSubtractionColumns()
-                                - integerLongDivisionSteps.get(iterator).getDenominatorOfSubtractionColumns());
-            copySketchOfIntegerLongDivision.append(SYM_NEW_LINE);
+                            steps.get(iterator).getMinuend() - steps.get(iterator).getSubtrahend());
+            sketchPart.append(SYM_NEW_LINE);
             if (iterator != (amountColumnsSubtraction - 1)) {
-                if (integerLongDivisionSteps.get(iterator).getNumeratorOfSubtractionColumns() == 0) {
+                if ((steps.get(iterator + 1).getMinuend()) == 0 ||
+                    (steps.get(iterator).getMinuend() - steps.get(iterator).getSubtrahend()) == 0) {
                     amountSpacesBeforeValues = amountSpacesBeforeValues
-                        + IntegerCalculationUtilities.calculateAmountOfDigits(
-                                    integerLongDivisionSteps.get(iterator).getNumeratorOfSubtractionColumns());
+                        + IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(iterator).getMinuend());
+                    if (IntegerCalculationUtilities.calculateAmountOfDigits(steps.get(iterator).getMinuend()) > 1) {
+                        amountSpacesBeforeValues--;
+                    }
                 }
-                addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                            amountSpacesBeforeValues);
-                copySketchOfIntegerLongDivision.append(SYM_SUBTRACTION)
-                            .append(integerLongDivisionSteps.get(iterator + 1).getNumeratorOfSubtractionColumns());
+                addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpacesBeforeValues);
+                sketchPart.append(SYM_SUBTRACTION).append(steps.get(iterator + 1).getMinuend());
             } else {
-                addingMultipleCopiesOfSymbol(copySketchOfIntegerLongDivision, SYM_SPACE_DELIMITER,
-                            amountSpacesBeforeValues);
-                copySketchOfIntegerLongDivision.append(SYM_SPACE_DELIMITER)
-                            .append(integerLongDivisionResult.getIntegerDivisionResult().getRemainderOfTheDivision());
+                addingMultipleCopiesOfSymbol(sketchPart, SYM_SPACE_DELIMITER, amountSpacesBeforeValues);
+                sketchPart.append(SYM_SPACE_DELIMITER).append(integerLongDivisionResult.getRemainder());
             }
             if (iterator != (amountColumnsSubtraction - 1)) {
-                copySketchOfIntegerLongDivision.append(SYM_NEW_LINE);
+                sketchPart.append(SYM_NEW_LINE);
             }
         }
-        return copySketchOfIntegerLongDivision.toString();
+        return sketchPart.toString();
     }
 
-    private void addingMultipleCopiesOfSymbol(StringBuilder sketchOfIntegerLongDivision,
+    private void addingMultipleCopiesOfSymbol(StringBuilder sketchPart,
                                               char symbol,
                                               int length) {
         for (int iterator = 0; iterator < length; iterator++) {
-            sketchOfIntegerLongDivision.append(symbol);
+            sketchPart.append(symbol);
         }
     }
 }

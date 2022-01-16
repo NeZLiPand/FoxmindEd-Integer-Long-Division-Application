@@ -1,8 +1,6 @@
 package ua.com.foxminded.integerdivision.utility;
 
 public abstract class IntegerCalculationUtilities {
-    private static final int NUM_ZERO = 0;
-    private static final int NUM_ONE = 1;
     private static final int DECIMAL_BASE = 10;
 
     private IntegerCalculationUtilities() {
@@ -10,7 +8,7 @@ public abstract class IntegerCalculationUtilities {
     }
 
     public static int calculateAmountOfDigits(int number) {
-        int countDigitsInNumber = NUM_ONE;
+        int countDigitsInNumber = 1;
         while (number >= DECIMAL_BASE) {
             number /= DECIMAL_BASE;
             countDigitsInNumber++;
@@ -21,8 +19,8 @@ public abstract class IntegerCalculationUtilities {
     public static int[] arrayInitializationByDigitsOfNumber(int number) {
         int sizeArray = calculateAmountOfDigits(number);
         int[] arrayDigitsOfNumber = new int[sizeArray];
-        for (int iteratorI = sizeArray; iteratorI > NUM_ZERO; iteratorI--) {
-            arrayDigitsOfNumber[iteratorI - NUM_ONE] = number % DECIMAL_BASE;
+        for (int iteratorI = sizeArray; iteratorI > 0; iteratorI--) {
+            arrayDigitsOfNumber[iteratorI - 1] = number % DECIMAL_BASE;
             number /= DECIMAL_BASE;
         }
         return arrayDigitsOfNumber;
@@ -32,8 +30,8 @@ public abstract class IntegerCalculationUtilities {
                                       int indexFromRightToLeft) {
         int digitFromNumber = number;
         if (digitFromNumber >= DECIMAL_BASE) {
-            if (indexFromRightToLeft > NUM_ONE) {
-                digitFromNumber /= (int) Math.pow(DECIMAL_BASE, indexFromRightToLeft - NUM_ONE);
+            if (indexFromRightToLeft > 1) {
+                digitFromNumber /= (int) Math.pow(DECIMAL_BASE, indexFromRightToLeft - 1);
             }
             digitFromNumber %= DECIMAL_BASE;
         }
