@@ -22,7 +22,6 @@ public class IntegerLongDivisionViewProviderImpl implements IntegerLongDivisionV
         return sketchOfIntegerLongDivision.append(addingRemainingParticlesOfLongDivision(integerLongDivisionResult))
                     .toString();
     }
-    
     private String addingFirstAndSecondParticlesOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
         StringBuilder sketchPart = new StringBuilder("");
         int divided = integerLongDivisionResult.getDivided();
@@ -57,7 +56,7 @@ public class IntegerLongDivisionViewProviderImpl implements IntegerLongDivisionV
         .append(SYM_SPACE_DELIMITER);
         return sketchPart.toString();
     }
-    
+  
     private String addingThirdParticleOfLongDivision(IntegerLongDivisionResult integerLongDivisionResult) {
         StringBuilder sketchPart = new StringBuilder("");
         int divided = integerLongDivisionResult.getDivided();
@@ -162,7 +161,7 @@ public class IntegerLongDivisionViewProviderImpl implements IntegerLongDivisionV
         }
         return sketchPart.toString();
     }
-    
+  
     private void addingMultipleCopiesOfSymbol(StringBuilder sketchPart,
                                               char symbol,
                                               int length) {

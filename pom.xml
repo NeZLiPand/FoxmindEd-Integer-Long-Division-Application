@@ -5,7 +5,7 @@
 
     <groupId>ua.com.foxminded</groupId>
     <artifactId>integerlongdivision</artifactId>
-    <version>0-0-5-SNAPSHOT</version>
+    <version>1-0-0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
